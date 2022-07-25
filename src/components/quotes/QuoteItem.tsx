@@ -2,7 +2,12 @@ import { Link } from "react-router-dom";
 
 import classes from "./QuoteItem.module.css";
 
-const QuoteItem = (props) => {
+const QuoteItem: React.FC<{
+    key: string;
+    id: string;
+    author: string;
+    text: string;
+}> = (props) => {
     return (
         <li className={classes.item}>
             <figure>

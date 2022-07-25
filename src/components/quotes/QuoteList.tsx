@@ -4,7 +4,9 @@ import { useHistory, useLocation } from "react-router-dom";
 import QuoteItem from "./QuoteItem";
 import classes from "./QuoteList.module.css";
 
-const sortQuotes = (quotes, ascending) => {
+import Quote from "../../models/quote";
+
+const sortQuotes = (quotes: Quote[], ascending: boolean) => {
     return quotes.sort((quoteA, quoteB) => {
         if (ascending) {
             return quoteA.id > quoteB.id ? 1 : -1;
@@ -14,7 +16,7 @@ const sortQuotes = (quotes, ascending) => {
     });
 };
 
-const QuoteList = (props) => {
+const QuoteList: React.FC<{ quotes: Quote[] }> = (props) => {
     const history = useHistory();
     const location = useLocation();
 

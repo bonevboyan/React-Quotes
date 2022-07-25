@@ -1,21 +1,26 @@
-import { Fragment, useRef, useState } from "react";
+import React, { Fragment, useRef, useState } from "react";
 import { Prompt } from "react-router-dom";
 
 import Card from "../UI/Card";
 import LoadingSpinner from "../UI/LoadingSpinner";
 import classes from "./QuoteForm.module.css";
 
-const QuoteForm = (props) => {
+import { QuoteInput } from "../../models/quote";
+
+const QuoteForm: React.FC<{
+    onAddQuote: (quote: QuoteInput) => void;
+    isLoading: boolean;
+}> = (props) => {
     const [isEntering, setIsEntering] = useState(false);
 
-    const authorInputRef = useRef();
-    const textInputRef = useRef();
+    const authorInputRef = useRef<HTMLInputElement>(null);
+    const textInputRef = useRef<HTMLTextAreaElement>(null);
 
-    function submitFormHandler(event) {
+    function submitFormHandler(event: React.FormEvent) {
         event.preventDefault();
 
-        const enteredAuthor = authorInputRef.current.value;
-        const enteredText = textInputRef.current.value;
+        const enteredAuthor = authorInputRef.current!.value;
+        const enteredText = textInputRef.current!.value;
 
         // optional: Could validate here
 
@@ -58,7 +63,7 @@ const QuoteForm = (props) => {
                         <label htmlFor="text">Text</label>
                         <textarea
                             id="text"
-                            rows="5"
+                            rows={5}
                             ref={textInputRef}
                         ></textarea>
                     </div>

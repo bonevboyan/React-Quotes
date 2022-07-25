@@ -5,8 +5,8 @@ import { addComment } from "../../lib/api";
 import LoadingSpinner from "../UI/LoadingSpinner";
 import classes from "./NewCommentForm.module.css";
 
-const NewCommentForm = (props) => {
-    const commentTextRef = useRef();
+const NewCommentForm: React.FC<{onAddedComment: () => void; quoteId: string}> = (props) => {
+    const commentTextRef = useRef<HTMLTextAreaElement>(null);
 
     const { sendRequest, status, error } = useHttp(addComment);
 
@@ -18,10 +18,10 @@ const NewCommentForm = (props) => {
         }
     }, [status, error, onAddedComment]);
 
-    const submitFormHandler = (event) => {
+    const submitFormHandler = (event: React.FormEvent) => {
         event.preventDefault();
 
-        const enteredText = commentTextRef.current.value;
+        const enteredText = commentTextRef.current!.value;
 
         // optional: Could validate here
 
@@ -40,7 +40,7 @@ const NewCommentForm = (props) => {
             )}
             <div className={classes.control} onSubmit={submitFormHandler}>
                 <label htmlFor="comment">Your Comment</label>
-                <textarea id="comment" rows="5" ref={commentTextRef}></textarea>
+                <textarea id="comment" rows={5} ref={commentTextRef}></textarea>
             </div>
             <div className={classes.actions}>
                 <button className="btn">Add Comment</button>

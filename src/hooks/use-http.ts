@@ -1,6 +1,18 @@
 import { useReducer, useCallback } from "react";
+import * as apiActions from "../lib/api";
 
-function httpReducer(state, action) {
+type State = {
+    data?: {} | null;
+    status?: string | null;
+    error?: string | null;
+};
+
+type Action =
+    | { type: "SEND" }
+    | { type: "SUCCESS"; responseData: {} }
+    | { type: "ERROR"; errorMessage: string };
+
+function httpReducer(state: State, action: Action) {
     if (action.type === "SEND") {
         return {
             data: null,
@@ -28,7 +40,13 @@ function httpReducer(state, action) {
     return state;
 }
 
-function useHttp(requestFunction, startWithPending = false) {
+const actionArray = Object.values(apiActions);
+
+type RequestData = Parameters<typeof actionArray[number]>[0];
+type ResponseData = ReturnType<typeof actionArray[number]>;
+
+
+function useHttp(requestFunction: (data: RequestData) => ResponseData, startWithPending = false) {
     const [httpState, dispatch] = useReducer(httpReducer, {
         status: startWithPending ? "pending" : null,
         data: null,
@@ -36,7 +54,7 @@ function useHttp(requestFunction, startWithPending = false) {
     });
 
     const sendRequest = useCallback(
-        async function (requestData) {
+        async function (requestData?: RequestData) {
             dispatch({ type: "SEND" });
             try {
                 const responseData = await requestFunction(requestData);
@@ -44,7 +62,8 @@ function useHttp(requestFunction, startWithPending = false) {
             } catch (error) {
                 dispatch({
                     type: "ERROR",
-                    errorMessage: error.message || "Something went wrong!",
+                    errorMessage:
+                        (error as Error).message || "Something went wrong!",
                 });
             }
         },

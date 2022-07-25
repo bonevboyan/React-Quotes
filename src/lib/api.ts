@@ -1,3 +1,5 @@
+import { QuoteInput } from "../models/quote";
+
 const FIREBASE_DOMAIN =
     "https://react-http-demo-ad927-default-rtdb.europe-west1.firebasedatabase.app";
 
@@ -23,7 +25,7 @@ export async function getAllQuotes() {
     return transformedQuotes;
 }
 
-export async function getSingleQuote(quoteId) {
+export async function getSingleQuote(quoteId: string) {
     const response = await fetch(`${FIREBASE_DOMAIN}/quotes/${quoteId}.json`);
     const data = await response.json();
 
@@ -39,7 +41,7 @@ export async function getSingleQuote(quoteId) {
     return loadedQuote;
 }
 
-export async function addQuote(quoteData) {
+export async function addQuote(quoteData: QuoteInput) {
     const response = await fetch(`${FIREBASE_DOMAIN}/quotes.json`, {
         method: "POST",
         body: JSON.stringify(quoteData),
@@ -56,7 +58,10 @@ export async function addQuote(quoteData) {
     return null;
 }
 
-export async function addComment(requestData) {
+export async function addComment(requestData: {
+    quoteId: string;
+    commentData: { text: string };
+}) {
     const response = await fetch(
         `${FIREBASE_DOMAIN}/comments/${requestData.quoteId}.json`,
         {
@@ -76,7 +81,7 @@ export async function addComment(requestData) {
     return { commentId: data.name };
 }
 
-export async function getAllComments(quoteId) {
+export async function getAllComments(quoteId: string) {
     const response = await fetch(`${FIREBASE_DOMAIN}/comments/${quoteId}.json`);
 
     const data = await response.json();
