@@ -1,1 +1,1 @@
-# React-Quotes
+# React-TypeScript-Shop
