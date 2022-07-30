@@ -1,8 +1,8 @@
 import { uiActions } from "./ui-slice";
-import { cartActions } from "./cart-slice";
+import { cartActions, CartState } from "./cart-slice";
 
 export const fetchCartData = () => {
-    return async (dispatch) => {
+    return async (dispatch: any) => {
         const fetchData = async () => {
             const response = await fetch(
                 "https://react-http-demo-ad927-default-rtdb.europe-west1.firebasedatabase.app/cart.json"
@@ -37,8 +37,8 @@ export const fetchCartData = () => {
     };
 };
 
-export const sendCartData = (cart) => {
-    return async (dispatch) => {
+export const sendCartData = (cart: CartState) => {
+    return async (dispatch: any) => {
         dispatch(
             uiActions.showNotification({
                 status: "pending",
