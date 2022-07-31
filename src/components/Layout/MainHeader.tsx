@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 import CartButton from "../Cart/CartButton";
 import classes from "./MainHeader.module.css";
@@ -6,10 +7,14 @@ import classes from "./MainHeader.module.css";
 const MainHeader: React.FC = () => {
 	return (
 		<header className={classes.header}>
-			<h1>ReduxCart</h1>
+			<Link to="/products" style={{ textDecoration: 'none' }}>
+				<h1>ReduxCart</h1>
+			</Link>
 			<nav>
 				<ul>
 					<li>
+						<Link to="/products" style={{ textDecoration: 'none' }}>Shop</Link>
+						<Link to="/addProduct" style={{ textDecoration: 'none' }}>Add a Product</Link>
 						<CartButton />
 					</li>
 				</ul>

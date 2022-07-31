@@ -1,8 +1,7 @@
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import type { RootState } from "./index";
+import { createSlice } from "@reduxjs/toolkit";
+//import type { RootState } from "./index";
 
 interface UIState {
-	cartIsVisible: boolean;
 	notification?: {
 		status: string;
 		title: string;
@@ -11,16 +10,12 @@ interface UIState {
 }
 
 const initialState: UIState = {
-	cartIsVisible: false,
 };
 
 const uiSlice = createSlice({
 	name: "ui",
 	initialState,
 	reducers: {
-		toggle(state) {
-			state.cartIsVisible = !state.cartIsVisible;
-		},
 		showNotification(state, action) {
 			state.notification = {
 				status: action.payload.status,

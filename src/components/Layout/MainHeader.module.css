@@ -17,3 +17,8 @@
   margin: 0;
   padding: 0;
 }
+
+.header a {
+  padding-right:5rem;
+  color: #1ad1b9;
+}

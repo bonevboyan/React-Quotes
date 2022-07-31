@@ -1,0 +1,35 @@
+.productForm h2 {
+	color: white;
+	margin: 2rem auto;
+	text-align: center;
+	text-transform: uppercase;
+}
+
+.productForm form {
+	margin: auto;
+	width: 50%;
+	padding: 10px;
+}
+
+.control {
+	margin-bottom: 2rem;
+}
+
+.control label {
+	color: white;
+	font-weight: bold;
+	margin-bottom: 0.25rem;
+	display: block;
+}
+
+.control input {
+	font: inherit;
+	border: 1px solid #ccc;
+	border-radius: 4px;
+	width: 20rem;
+	max-width: 100%;
+}
+
+.control p {
+	color: rgb(236, 51, 51);
+}
