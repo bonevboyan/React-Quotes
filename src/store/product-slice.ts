@@ -9,17 +9,21 @@ interface Product {
 
 export interface ProductsState {
 	products: Product[];
+	changed: boolean;
 }
 
 const initialState: ProductsState = {
-    products: []
+    products: [],
+	changed: false
 };
 
 const productSlice = createSlice({
 	name: "product",
 	initialState,
 	reducers: {
-        
+        replaceProducts(state, action) {
+			state.products = action.payload.items;
+		},
 		addProduct(state, action) {
             state.products.push({
                 id: state.products.length.toString(),
@@ -27,6 +31,7 @@ const productSlice = createSlice({
                 price: action.payload.price,
                 description: action.payload.description
             });
+			state.changed = true;
 		},
 	},
 });

@@ -1,9 +1,14 @@
 import React from "react";
 import useInput from "../../hooks/use-input";
 
+import { useAppDispatch } from "../../store/hooks";
+import { productActions } from "../../store/product-slice";
+
 import classes from "./AddProduct.module.css"
 
 const AddProduct = () => {
+    const dispatch = useAppDispatch();
+
     const {
         value: enteredTitle,
         isValid: titleIsValid,
@@ -40,7 +45,11 @@ const AddProduct = () => {
         titleReset();
         descriptionReset();
         
-        
+        dispatch(productActions.addProduct({
+            description: enteredDescription,
+            price: +enteredPrice,
+            title: enteredTitle
+        }));
     }
 
     return <section className={classes.productForm}>

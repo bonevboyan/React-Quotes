@@ -1,6 +1,6 @@
 import React from "react";
 
-import { useDispatch } from "react-redux";
+import { useAppDispatch } from "../../store/hooks";
 
 import { cartActions } from "../../store/cart-slice";
 import Card from "../UI/Card";
@@ -13,16 +13,14 @@ const ProductItem: React.FC<{
 	price: number;
 	description: string;
 }> = (props) => {
-	const dispatch = useDispatch();
-
-	const { title, price, description, id } = props;
+	const dispatch = useAppDispatch();
 
 	const addToCartHandler = () => {
 		dispatch(
 			cartActions.addItemToCart({
-				id,
-				title,
-				price,
+				id: props.id,
+				title: props.title,
+				price: props.price,
 			})
 		);
 	};
@@ -31,10 +29,10 @@ const ProductItem: React.FC<{
 		<li className={classes.item}>
 			<Card>
 				<header>
-					<h3>{title}</h3>
-					<div className={classes.price}>${price.toFixed(2)}</div>
+					<h3>{props.title}</h3>
+					<div className={classes.price}>${props.price.toFixed(2)}</div>
 				</header>
-				<p>{description}</p>
+				<p>{props.description}</p>
 				<div className={classes.actions}>
 					<button onClick={addToCartHandler}>Add to Cart</button>
 				</div>

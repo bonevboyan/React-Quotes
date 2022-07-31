@@ -7,9 +7,11 @@ interface UIState {
 		title: string;
 		message: string;
 	};
+	isShown: boolean;
 }
 
 const initialState: UIState = {
+	isShown: false
 };
 
 const uiSlice = createSlice({
@@ -17,12 +19,17 @@ const uiSlice = createSlice({
 	initialState,
 	reducers: {
 		showNotification(state, action) {
+			state.isShown = true;
+
 			state.notification = {
 				status: action.payload.status,
 				title: action.payload.title,
 				message: action.payload.message,
 			};
 		},
+		hideNotification(state) {
+			state.isShown = false;
+		}
 	},
 });
 

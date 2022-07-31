@@ -1,29 +1,20 @@
 import React from "react";
 
+import { useAppSelector } from "../../store/hooks";
+
 import ProductItem from "./ProductItem";
 import classes from "./Products.module.css";
 
-const DUMMY_PRODUCTS = [
-	{
-		id: "p1",
-		price: 6,
-		title: "My First Book",
-		description: "The first book I ever wrote",
-	},
-	{
-		id: "p2",
-		price: 5,
-		title: "My Second Book",
-		description: "The second book I ever wrote",
-	},
-];
-
 const Products = () => {
+	const products = useAppSelector((state) => state.products.products);
+
+	console.log(products);
+
 	return (
 		<section className={classes.products}>
 			<h2>Buy your favorite products</h2>
 			<ul>
-				{DUMMY_PRODUCTS.map((product) => (
+				{products.map((product) => (
 					<ProductItem
 						key={product.id}
 						id={product.id}

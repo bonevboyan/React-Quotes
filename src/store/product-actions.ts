@@ -5,11 +5,11 @@ export const fetchProductsData = () => {
     return async (dispatch: any) => {
         const fetchData = async () => {
             const response = await fetch(
-                "https://react-http-demo-ad927-default-rtdb.europe-west1.firebasedatabase.app/cart.json"
+                "https://react-http-demo-ad927-default-rtdb.europe-west1.firebasedatabase.app/products.json"
             );
 
             if (!response.ok) {
-                throw new Error("Could not fetch cart data!");
+                throw new Error("Could not fetch products data!");
             }
 
             const data = await response.json();
@@ -20,9 +20,8 @@ export const fetchProductsData = () => {
         try {
             const cartData = await fetchData();
             dispatch(
-                productActions.replaceCart({
-                    items: cartData.items || [],
-                    totalQuantity: cartData.totalQuantity,
+                productActions.replaceProducts({
+                    items: cartData.products || []
                 })
             );
         } catch (error) {
@@ -30,14 +29,14 @@ export const fetchProductsData = () => {
                 uiActions.showNotification({
                     status: "error",
                     title: "Error!",
-                    message: "Fetching cart data failed!",
+                    message: "Fetching product data failed!",
                 })
             );
         }
     };
 };
 
-export const sendProductData = (cart: ProductsState) => {
+export const sendProductData = (products: ProductsState) => {
     return async (dispatch: any) => {
         dispatch(
             uiActions.showNotification({
@@ -49,18 +48,17 @@ export const sendProductData = (cart: ProductsState) => {
 
         const sendRequest = async () => {
             const response = await fetch(
-                "https://react-http-demo-ad927-default-rtdb.europe-west1.firebasedatabase.app/cart.json",
+                "https://react-http-demo-ad927-default-rtdb.europe-west1.firebasedatabase.app/products.json",
                 {
                     method: "PUT",
                     body: JSON.stringify({
-                        items: cart.items,
-                        totalQuantity: cart.totalQuantity,
+                        products: products.products
                     }),
                 }
             );
 
             if (!response.ok) {
-                throw new Error("Sending cart data failed.");
+                throw new Error("Sending product data failed.");
             }
         };
 
@@ -71,7 +69,7 @@ export const sendProductData = (cart: ProductsState) => {
                 uiActions.showNotification({
                     status: "success",
                     title: "Success!",
-                    message: "Sent cart data successfully!",
+                    message: "Sent product data successfully!",
                 })
             );
         } catch (error) {
@@ -79,7 +77,7 @@ export const sendProductData = (cart: ProductsState) => {
                 uiActions.showNotification({
                     status: "error",
                     title: "Error!",
-                    message: "Sending cart data failed!",
+                    message: "Sending product data failed!",
                 })
             );
         }

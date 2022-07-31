@@ -22,3 +22,9 @@
 .success {
   background-color: #1ad1b9;
 }
+
+.close {
+  font-size: 15px;
+  font-weight: bold;
+  color: rgb(255, 255, 255);
+}

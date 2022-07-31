@@ -1,23 +1,33 @@
-import classes from './Notification.module.css';
+import classes from "./Notification.module.css";
+
+import { useAppDispatch } from "../../store/hooks";
+import { uiActions } from "../../store/ui-slice";
 
 const Notification = (props) => {
-  let specialClasses = '';
+	const dispatch = useAppDispatch();
 
-  if (props.status === 'error') {
-    specialClasses = classes.error;
-  }
-  if (props.status === 'success') {
-    specialClasses = classes.success;
-  }
+	const closeNotificationHandler = () => {
+		dispatch(uiActions.hideNotification());
+	}
 
-  const cssClasses = `${classes.notification} ${specialClasses}`;
+	let specialClasses = "";
 
-  return (
-    <section className={cssClasses}>
-      <h2>{props.title}</h2>
-      <p>{props.message}</p>
-    </section>
-  );
+	if (props.status === "error") {
+		specialClasses = classes.error;
+	}
+	if (props.status === "success") {
+		specialClasses = classes.success;
+	}
+
+	const cssClasses = `${classes.notification} ${specialClasses}`;
+
+	return (
+		<section className={cssClasses}>
+			<h2>{props.title}</h2>
+			<p>{props.message}</p>
+			<button className={classes.close} onClick={closeNotificationHandler}>X</button>
+		</section>
+	);
 };
 
 export default Notification;
