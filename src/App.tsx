@@ -37,6 +37,11 @@ function App() {
 	}, [cart, dispatch]);
 
 	useEffect(() => {
+		if (isInitial) {
+			isInitial = false;
+			return;
+		}
+		
 		if (products.changed) {
 			dispatch(sendProductData(products));
 		}

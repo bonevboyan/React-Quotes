@@ -3,12 +3,16 @@ import classes from "./Notification.module.css";
 import { useAppDispatch } from "../../store/hooks";
 import { uiActions } from "../../store/ui-slice";
 
-const Notification = (props) => {
+const Notification: React.FC<{
+	status: string;
+	title: string;
+	message: string;
+}> = (props) => {
 	const dispatch = useAppDispatch();
 
 	const closeNotificationHandler = () => {
 		dispatch(uiActions.hideNotification());
-	}
+	};
 
 	let specialClasses = "";
 
@@ -25,7 +29,12 @@ const Notification = (props) => {
 		<section className={cssClasses}>
 			<h2>{props.title}</h2>
 			<p>{props.message}</p>
-			<button className={classes.close} onClick={closeNotificationHandler}>X</button>
+			<button
+				className={classes.close}
+				onClick={closeNotificationHandler}
+			>
+				X
+			</button>
 		</section>
 	);
 };
