@@ -28,6 +28,7 @@ const cartSlice = createSlice({
 		replaceCart(state, action) {
 			state.totalQuantity = action.payload.totalQuantity;
 			state.items = action.payload.items;
+			console.log(state);
 		},
 		addItemToCart(state, action) {
 			const newItem = action.payload;

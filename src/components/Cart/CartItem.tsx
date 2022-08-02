@@ -39,7 +39,7 @@ const CartItem = (props: {item: Item}) => {
 			</header>
 			<div className={classes.details}>
 				<div className={classes.quantity}>
-					x <span>{quantity}</span>
+					x <span data-testid="quantity">{quantity}</span>
 				</div>
 				<div className={classes.actions}>
 					<button onClick={removeItemHandler}>-</button>

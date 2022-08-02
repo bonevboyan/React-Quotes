@@ -1,3 +1,4 @@
+import React from "react";
 import classes from "./Notification.module.css";
 
 import { useAppDispatch } from "../../store/hooks";

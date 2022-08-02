@@ -7,6 +7,9 @@ import { Provider } from "react-redux";
 import type { AppStore, RootState } from "../store/index";
 import setupStore from "../store/index";
 
+import { createMemoryHistory } from "history";
+import { Router } from "react-router-dom";
+
 interface ExtendedRenderOptions extends Omit<RenderOptions, "queries"> {
 	preloadedState?: PreloadedState<RootState>;
 	store?: AppStore;
@@ -25,4 +28,13 @@ export function renderWithProviders(
 	}
 
 	return { store, ...render(ui, { wrapper: Wrapper, ...renderOptions }) };
+}
+
+export function renderWithRouter(ui: React.ReactElement) {
+	const history = createMemoryHistory({ initialEntries: ["/products"] });
+	return renderWithProviders(
+		<Router location={history.location} navigator={history}>
+			{ui}
+		</Router>
+	);
 }

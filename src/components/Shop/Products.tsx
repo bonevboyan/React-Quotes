@@ -8,8 +8,6 @@ import classes from "./Products.module.css";
 const Products = () => {
 	const products = useAppSelector((state) => state.products.products);
 
-	console.log(products);
-
 	return (
 		<section className={classes.products}>
 			<h2>Buy your favorite products</h2>
