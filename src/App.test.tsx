@@ -1,34 +1,25 @@
 import React from "react";
 
-import { fireEvent, screen } from "@testing-library/react";
+import { fireEvent, screen, waitForElement } from "@testing-library/react";
 import { renderWithRouter } from "./utils/test-utils";
 
 import App from "./App";
 
 describe("app", () => {
-    beforeEach(() => {
-		const testItem = {
-			id: "1",
-			price: 1,
-			quantity: 1,
-			totalPrice: 1,
-			name: "test",
-		};
-
-		const testCartState = {
-			items: [testItem],
-			totalQuantity: 1,
-		};
-        jest.clearAllMocks();
-        global.fetch = jest.fn(() =>
-			Promise.resolve({
-				json: () => Promise.resolve(testCartState),
-			})
-		) as jest.Mock;
-      });
-	it("should render cart data", () => {
-		const { store } = renderWithRouter(<App />);
-
-        expect(store.getState().cart.totalQuantity).toEqual(1);
+	let originFetch: any;
+	beforeEach(() => {
+		originFetch = (global as any).fetch;
+	});
+	afterEach(() => {
+		(global as any).fetch = originFetch;
+	});
+	it("should pass", async () => {
+		const fakeResponse = { totalQuantity: 2, items: [] };
+		const mRes = { json: jest.fn().mockResolvedValueOnce(fakeResponse) };
+		const mockedFetch = jest.fn().mockResolvedValueOnce(mRes as any);
+		(global as any).fetch = mockedFetch;
+		renderWithRouter(<App />);
+		// expect(store.getState().cart.totalQuantity).toEqual(2);
+		expect(mockedFetch).toBeCalledTimes(2);
 	});
 });
