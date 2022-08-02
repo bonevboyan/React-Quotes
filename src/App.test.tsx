@@ -1,6 +1,6 @@
 import React from "react";
 
-import { fireEvent, screen, waitForElement } from "@testing-library/react";
+import { fireEvent, screen, waitFor } from "@testing-library/react";
 import { renderWithRouter } from "./utils/test-utils";
 
 import App from "./App";
@@ -18,8 +18,10 @@ describe("app", () => {
 		const mRes = { json: jest.fn().mockResolvedValueOnce(fakeResponse) };
 		const mockedFetch = jest.fn().mockResolvedValueOnce(mRes as any);
 		(global as any).fetch = mockedFetch;
-		renderWithRouter(<App />);
-		// expect(store.getState().cart.totalQuantity).toEqual(2);
+		
+		const { store } = renderWithRouter(<App />);
+
+		await waitFor(() => expect(store.getState().cart.totalQuantity).toEqual(2));
 		expect(mockedFetch).toBeCalledTimes(2);
 	});
 });
