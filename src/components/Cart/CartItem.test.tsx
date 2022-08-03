@@ -2,11 +2,10 @@ import React from "react";
 
 import { fireEvent, screen } from "@testing-library/react";
 import { renderWithProviders } from "../../utils/test-utils";
-import { cartActions } from "../../store/cart-slice";
 import CartItem from "./CartItem";
 
 describe("cart item", () => {
-    it("should render correcly", () => {
+    it("should render correcly with provided props", () => {
         const item = {
             name: "test name",
             quantity: 10,
@@ -22,7 +21,7 @@ describe("cart item", () => {
         expect(screen.getByText(`$${(item.totalPrice)}`)).toBeInTheDocument();
         expect(screen.getByText(item.quantity)).toBeInTheDocument();
     });
-    it("should increase quantity when item is added", () => {
+    it("should change quantity when item is added or removed", () => {
         const item = {
             name: "test name",
             quantity: 10,

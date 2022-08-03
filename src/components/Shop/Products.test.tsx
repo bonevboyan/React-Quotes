@@ -1,8 +1,6 @@
 import React from "react";
 
-import { fireEvent, screen } from "@testing-library/react";
 import { renderWithProviders } from "../../utils/test-utils";
-import { cartActions } from "../../store/cart-slice";
 import Products from "./Products";
 import { productActions } from "../../store/product-slice";
 

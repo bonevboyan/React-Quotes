@@ -6,11 +6,6 @@ import { renderWithProviders } from "../../utils/test-utils";
 import AddProduct from "./AddProduct";
 
 describe("addProduct component", () => {
-	it("should render correctly", () => {
-		renderWithProviders(<AddProduct />);
-
-		expect(screen.getByText("Title")).toBeInTheDocument();
-	});
 	it("disables add button", () => {
 		renderWithProviders(<AddProduct />);
 
@@ -30,12 +25,12 @@ describe("addProduct component", () => {
 		inputs.push(priceInput);
 		fireEvent.change(priceInput, { target: { value: 23 } });
 
-		screen.getByText("Add").click();
+		fireEvent.click(screen.getByText("Add"));
 
 		expect(inputs.every((field) => field.textContent === "")).toBeTruthy();
 	});
 	it("shows error message", () => {
-		const el = renderWithProviders(<AddProduct />);
+		const { container } = renderWithProviders(<AddProduct />);
 		const inputs = screen.getAllByRole("textbox");
 
 		inputs.forEach((field) => {
@@ -51,6 +46,6 @@ describe("addProduct component", () => {
 		fireEvent.change(priceInput, { target: { value: -23 } });
 		priceInput.blur();
 
-		expect(el.baseElement.querySelectorAll("p").length).toEqual(3);
+		expect(container.querySelectorAll("p").length).toEqual(3);
 	});
 });

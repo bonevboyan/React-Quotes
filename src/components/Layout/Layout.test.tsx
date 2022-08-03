@@ -13,6 +13,6 @@ describe("layout", () => {
 			</Layout>
 		);
 
-		expect(screen.getByText("test text")).toBeInTheDocument();
+		expect(screen.getByText(text)).toBeInTheDocument();
 	});
 });

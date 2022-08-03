@@ -75,9 +75,7 @@ describe("cart slice", () => {
 		);
 	});
 	it("should remove only existing item from cart", () => {
-		const id = "1";
-
-		const action = cartActions.removeItemFromCart(id);
+		const action = cartActions.removeItemFromCart(testItem.id);
 		const result = cartReducer(testCartState, action);
 
         expect(result.changed).toEqual(true);
@@ -85,9 +83,7 @@ describe("cart slice", () => {
         expect(result.totalQuantity).toEqual(testCartState.totalQuantity - 1);
 	});
 	it("should return if item is nonexistent", () => {
-		const id = "2";
-
-		const action = cartActions.removeItemFromCart(id);
+		const action = cartActions.removeItemFromCart("fake id");
 		const result = cartReducer(testCartState, action);
 
         expect(result.changed).toEqual(false);
@@ -108,9 +104,7 @@ describe("cart slice", () => {
             changed: false,
         };
 
-		const id = "1";
-
-		const action = cartActions.removeItemFromCart(id);
+		const action = cartActions.removeItemFromCart(newTestItem.id);
 		const result = cartReducer(newTestCartState, action);
 
 		expect(result.items.length).toEqual(testCartState.items.length);

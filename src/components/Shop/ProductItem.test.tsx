@@ -2,7 +2,6 @@ import React from "react";
 
 import { fireEvent, screen } from "@testing-library/react";
 import { renderWithProviders } from "../../utils/test-utils";
-import { cartActions } from "../../store/cart-slice";
 import ProductItem from "./ProductItem";
 
 describe("product item", () => {
