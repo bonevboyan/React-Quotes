@@ -26,22 +26,12 @@ function App() {
 	}, [dispatch]);
 
 	useEffect(() => {
-		if (isInitial) {
-			isInitial = false;
-			return;
-		}
-
 		if (cart.changed) {
 			dispatch(sendCartData(cart));
 		}
 	}, [cart, dispatch]);
 
 	useEffect(() => {
-		if (isInitial) {
-			isInitial = false;
-			return;
-		}
-		
 		if (products.changed) {
 			dispatch(sendProductData(products));
 		}
@@ -49,7 +39,7 @@ function App() {
 
 	return (
 		<Fragment>
-			{(isNotificationShown && notification) && (
+			{isNotificationShown && notification && (
 				<Notification
 					status={notification.status}
 					title={notification.title}
@@ -61,7 +51,10 @@ function App() {
 					<Route path="/products" element={<Products />} />
 					<Route path="/addProduct" element={<AddProduct />} />
 					<Route path="/cart" element={<Cart />} />
-					<Route path="*" element={<Navigate to="/products" replace />} />
+					<Route
+						path="*"
+						element={<Navigate to="/products" replace />}
+					/>
 				</Routes>
 			</Layout>
 		</Fragment>

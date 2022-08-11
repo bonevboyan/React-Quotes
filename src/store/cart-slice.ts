@@ -75,7 +75,4 @@ const cartSlice = createSlice({
 
 export const cartActions = cartSlice.actions;
 
-export const selectCartItems = (state: RootState) => state.cart.items;
-export const selectTotalQuantity = (state: RootState) => state.cart.totalQuantity;
-
 export default cartSlice;
