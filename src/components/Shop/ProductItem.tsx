@@ -30,7 +30,9 @@ const ProductItem: React.FC<{
 			<Card>
 				<header>
 					<h3>{props.title}</h3>
-					<div className={classes.price}>${props.price.toFixed(2)}</div>
+					<div className={classes.price}>
+						${props.price.toFixed(2)}
+					</div>
 				</header>
 				<p>{props.description}</p>
 				<div className={classes.actions}>

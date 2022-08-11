@@ -1,27 +1,77 @@
 import React from "react";
 
-import { fireEvent, screen, waitFor } from "@testing-library/react";
+import {
+	findByAltText,
+	fireEvent,
+	screen,
+	waitFor,
+} from "@testing-library/react";
 import { renderWithRouter } from "./utils/test-utils";
+import fetch from "jest-fetch-mock";
 
 import App from "./App";
+import { cartActions } from "./store/cart-slice";
 
 describe("app", () => {
-	let originFetch: any;
 	beforeEach(() => {
-		originFetch = (global as any).fetch;
-	});
-	afterEach(() => {
-		(global as any).fetch = originFetch;
+		fetch.resetMocks();
 	});
 	it("should call fetch correct number of times", async () => {
-		const fakeResponse = { totalQuantity: 2, items: [] };
-		const mRes = { json: jest.fn().mockResolvedValueOnce(fakeResponse) };
-		const mockedFetch = jest.fn().mockResolvedValueOnce(mRes as any);
-		(global as any).fetch = mockedFetch;
-		
+		renderWithRouter(<App />);
+
+		expect(fetch).toBeCalledTimes(2);
+		expect(fetch).toHaveBeenCalledWith(
+			"https://react-http-demo-ad927-default-rtdb.europe-west1.firebasedatabase.app/cart.json"
+		);
+		expect(fetch).toHaveBeenCalledWith(
+			"https://react-http-demo-ad927-default-rtdb.europe-west1.firebasedatabase.app/products.json"
+		);
+	});
+	it("should render cart total quantity with correct data", async () => {
+		fetch.mockResponseOnce(
+			JSON.stringify({
+				items: [
+					{
+						id: "0",
+						name: "Test",
+						price: 10,
+						quantity: 1,
+						totalPrice: 10,
+					},
+				],
+				totalQuantity: 1,
+			})
+		);
+
 		const { store } = renderWithRouter(<App />);
 
-		//await waitFor(() => expect(store.getState().cart.totalQuantity).toEqual(2));
-		expect(mockedFetch).toBeCalledTimes(2);
+		const element = await screen.findByText("My Cart");
+		expect(element.nextSibling?.textContent).toContain("1");
+		expect(store.getState().cart.totalQuantity).toEqual(1);
+	});
+	it("should render cart total quantity with correct data", async () => {
+		fetch.mockResponseOnce(
+			JSON.stringify({
+				items: [
+					{
+						id: "0",
+						name: "Test",
+						price: 10,
+						quantity: 1,
+						totalPrice: 10,
+					},
+				],
+				totalQuantity: 1,
+			})
+		);
+
+		const { store } = renderWithRouter(<App />);
+
+		const element = await screen.findByText("My Cart");
+
+		store.dispatch(cartActions.removeItemFromCart("0"));
+		expect(element.nextSibling?.textContent).toContain("0");
+		expect(store.getState().cart.totalQuantity).toEqual(0);
+		expect
 	});
 });
