@@ -5,7 +5,7 @@ export const fetchProductsData = () => {
     return async (dispatch: any) => {
         const fetchData = async () => {
             const response = await fetch(
-                "https://react-http-demo-ad927-default-rtdb.europe-west1.firebasedatabase.app/products.json"
+                process.env.FIREBASE_DEMO_URL + "products.json"
             );
 
             if (!response.ok) {
@@ -48,7 +48,7 @@ export const sendProductData = (products: ProductsState) => {
 
         const sendRequest = async () => {
             const response = await fetch(
-                "https://react-http-demo-ad927-default-rtdb.europe-west1.firebasedatabase.app/products.json",
+                process.env.FIREBASE_DEMO_URL + "products.json",
                 {
                     method: "PUT",
                     body: JSON.stringify({

@@ -17,10 +17,10 @@ describe("app", () => {
 
 		expect(fetch).toBeCalledTimes(2);
 		expect(fetch).toHaveBeenCalledWith(
-			"https://react-http-demo-ad927-default-rtdb.europe-west1.firebasedatabase.app/cart.json"
+			process.env.FIREBASE_DEMO_URL + "cart.json"
 		);
 		expect(fetch).toHaveBeenCalledWith(
-			"https://react-http-demo-ad927-default-rtdb.europe-west1.firebasedatabase.app/products.json"
+			process.env.FIREBASE_DEMO_URL + "products.json"
 		);
 	});
 	it("should render correct cart data", async () => {
