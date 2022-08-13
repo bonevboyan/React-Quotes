@@ -5,7 +5,7 @@ export const fetchProductsData = () => {
     return async (dispatch: any) => {
         const fetchData = async () => {
             const response = await fetch(
-                process.env.FIREBASE_DEMO_URL + "products.json"
+                process.env.REACT_APP_FIREBASE_DEMO_URL + "products.json"
             );
 
             if (!response.ok) {
@@ -48,7 +48,7 @@ export const sendProductData = (products: ProductsState) => {
 
         const sendRequest = async () => {
             const response = await fetch(
-                process.env.FIREBASE_DEMO_URL + "products.json",
+                process.env.REACT_APP_FIREBASE_DEMO_URL + "products.json",
                 {
                     method: "PUT",
                     body: JSON.stringify({

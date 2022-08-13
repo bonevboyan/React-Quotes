@@ -11,8 +11,6 @@ import { sendCartData, fetchCartData } from "./store/cart-actions";
 import { sendProductData, fetchProductsData } from "./store/product-actions";
 import AddProduct from "./components/AddProduct/AddProduct";
 
-let isInitial = true;
-
 function App() {
 	const dispatch = useAppDispatch();
 	const cart = useAppSelector((state) => state.cart);
@@ -21,7 +19,7 @@ function App() {
 	const isNotificationShown = useAppSelector((state) => state.ui.isShown);
 
 	useEffect(() => {
-		console.log(process.env.FIREBASE_DEMO_URL);
+		console.log(process.env.REACT_APP_FIREBASE_DEMO_URL)
 		dispatch(fetchCartData());
 		dispatch(fetchProductsData());
 	}, [dispatch]);

@@ -5,7 +5,7 @@ export const fetchCartData = () => {
     return async (dispatch: any) => {
         const fetchData = async () => {
             const response = await fetch(
-                process.env.FIREBASE_DEMO_URL + "cart.json"
+                process.env.REACT_APP_FIREBASE_DEMO_URL + "cart.json"
             );
 
             if (!response.ok) {
@@ -49,7 +49,7 @@ export const sendCartData = (cart: CartState) => {
 
         const sendRequest = async () => {
             const response = await fetch(
-                process.env.FIREBASE_DEMO_URL + "cart.json",
+                process.env.REACT_APP_FIREBASE_DEMO_URL + "cart.json",
                 {
                     method: "PUT",
                     body: JSON.stringify({
