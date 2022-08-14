@@ -5,21 +5,16 @@ import { useAppDispatch } from "../../store/hooks";
 import { cartActions } from "../../store/cart-slice";
 import Card from "../UI/Card";
 import classes from "./ProductItem.module.css";
+import { Product } from "../../store/product-slice";
 
-const ProductItem: React.FC<{
-	key: string;
-	id: string;
-	title: string;
-	price: number;
-	description: string;
-}> = (props) => {
+const ProductItem: React.FC<Product> = (props) => {
 	const dispatch = useAppDispatch();
 
 	const addToCartHandler = () => {
 		dispatch(
 			cartActions.addItemToCart({
 				id: props.id,
-				title: props.title,
+				name: props.title,
 				price: props.price,
 			})
 		);

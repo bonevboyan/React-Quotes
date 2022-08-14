@@ -18,7 +18,7 @@ describe("product slice", () => {
 		});
 	});
 	it("should replace cart with correct data", () => {
-		const action = productActions.replaceProducts({items: testProductState.products});
+		const action = productActions.replaceProducts(testProductState.products);
 		const result = productReducer(initialState, action);
 
 		expect(result.products).toEqual(testProductState.products);

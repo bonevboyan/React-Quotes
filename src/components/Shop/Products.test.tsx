@@ -1,5 +1,4 @@
 import React from "react";
-
 import { renderWithProviders } from "../../utils/test-utils";
 import Products from "./Products";
 import { productActions } from "../../store/product-slice";

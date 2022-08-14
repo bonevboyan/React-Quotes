@@ -1,5 +1,4 @@
 import React from "react";
-
 import { useAppSelector } from "../../store/hooks";
 
 import ProductItem from "./ProductItem";

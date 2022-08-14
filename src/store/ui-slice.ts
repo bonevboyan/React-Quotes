@@ -1,12 +1,13 @@
-import { createSlice } from "@reduxjs/toolkit";
-//import type { RootState } from "./index";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+
+export interface Notification {
+	status: string;
+	title: string;
+	message: string;
+}
 
 interface UIState {
-	notification?: {
-		status: string;
-		title: string;
-		message: string;
-	};
+	notification?: Notification;
 	isShown: boolean;
 }
 
@@ -18,7 +19,7 @@ const uiSlice = createSlice({
 	name: "ui",
 	initialState,
 	reducers: {
-		showNotification(state, action) {
+		showNotification(state, action: PayloadAction<Notification>) {
 			state.isShown = true;
 
 			state.notification = {
@@ -34,8 +35,5 @@ const uiSlice = createSlice({
 });
 
 export const uiActions = uiSlice.actions;
-
-//export const selectNotification = (state: RootState) => state.ui.notification;
-//export const selectIsCartVisible = (state: RootState) => state.ui.cartIsVisible;
 
 export default uiSlice;

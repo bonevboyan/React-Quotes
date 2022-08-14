@@ -5,7 +5,6 @@ import { fireEvent, screen } from "@testing-library/react";
 import { uiActions } from "../../store/ui-slice";
 
 import Notification from "./Notification";
-import exp from "constants";
 
 describe("notfication", () => {
 	it.each`

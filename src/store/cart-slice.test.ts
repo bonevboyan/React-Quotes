@@ -43,7 +43,7 @@ describe("cart slice", () => {
 		const newItem = {
 			id: "2",
 			price: 1,
-			title: "another test",
+			name: "another test",
 		};
 
 		const action = cartActions.addItemToCart(newItem);

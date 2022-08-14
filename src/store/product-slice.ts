@@ -1,10 +1,13 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
-interface Product {
-    id: string;
+interface InputProduct {
 	price: number;
 	title: string;
     description: string;
+}
+
+export interface Product extends InputProduct {
+    id: string;
 }
 
 export interface ProductsState {
@@ -21,10 +24,10 @@ const productSlice = createSlice({
 	name: "product",
 	initialState,
 	reducers: {
-        replaceProducts(state, action) {
-			state.products = action.payload.items;
+        replaceProducts(state, action: PayloadAction<Product[]>) {
+			state.products = action.payload;
 		},
-		addProduct(state, action) {
+		addProduct(state, action: PayloadAction<InputProduct>) {
             state.products.push({
                 id: state.products.length.toString(),
                 title: action.payload.title,
@@ -37,8 +40,5 @@ const productSlice = createSlice({
 });
 
 export const productActions = productSlice.actions;
-
-//export const selectNotification = (state: RootState) => state.ui.notification;
-//export const selectIsCartVisible = (state: RootState) => state.ui.cartIsVisible;
 
 export default productSlice;

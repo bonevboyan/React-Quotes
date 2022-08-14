@@ -1,5 +1,4 @@
 import React from "react";
-
 import { screen } from "@testing-library/react";
 import { renderWithRouter } from "./utils/test-utils";
 import fetch from "jest-fetch-mock";
@@ -17,10 +16,10 @@ describe("app", () => {
 
 		expect(fetch).toBeCalledTimes(2);
 		expect(fetch).toHaveBeenCalledWith(
-			process.env.FIREBASE_DEMO_URL + "cart.json"
+			process.env.REACT_APP_FIREBASE_DEMO_URL + "cart.json"
 		);
 		expect(fetch).toHaveBeenCalledWith(
-			process.env.FIREBASE_DEMO_URL + "products.json"
+			process.env.REACT_APP_FIREBASE_DEMO_URL + "products.json"
 		);
 	});
 	it("should render correct cart data", async () => {
@@ -116,7 +115,6 @@ describe("app", () => {
 		store.dispatch(
 			productActions.addProduct({
 				description: "test description",
-				id: "0",
 				price: 10,
 				title: "Book 2",
 			})

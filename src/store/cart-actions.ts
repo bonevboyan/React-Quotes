@@ -1,8 +1,9 @@
 import { uiActions } from "./ui-slice";
 import { cartActions, CartState } from "./cart-slice";
+import { AppDispatch } from ".";
 
 export const fetchCartData = () => {
-    return async (dispatch: any) => {
+    return async (dispatch: AppDispatch) => {
         const fetchData = async () => {
             const response = await fetch(
                 process.env.REACT_APP_FIREBASE_DEMO_URL + "cart.json"
@@ -38,7 +39,7 @@ export const fetchCartData = () => {
 };
 
 export const sendCartData = (cart: CartState) => {
-    return async (dispatch: any) => {
+    return async (dispatch: AppDispatch) => {
         dispatch(
             uiActions.showNotification({
                 status: "pending",

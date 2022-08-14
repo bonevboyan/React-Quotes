@@ -1,7 +1,12 @@
-import { createSlice } from "@reduxjs/toolkit";
-import { RootState } from "./index";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
-export interface Item {
+interface InputItem {
+	id: string;
+	price: number;
+	name: string;
+}
+
+export interface Item extends InputItem {
 	id: string;
 	price: number;
 	quantity: number;
@@ -9,9 +14,12 @@ export interface Item {
 	name: string;
 }
 
-export interface CartState {
+interface Cart {
 	items: Item[];
 	totalQuantity: number;
+}
+
+export interface CartState extends Cart {
 	changed: boolean;
 }
 
@@ -25,11 +33,11 @@ const cartSlice = createSlice({
 	name: "cart",
 	initialState,
 	reducers: {
-		replaceCart(state, action) {
+		replaceCart(state, action: PayloadAction<Cart>) {
 			state.totalQuantity = action.payload.totalQuantity;
 			state.items = action.payload.items;
 		},
-		addItemToCart(state, action) {
+		addItemToCart(state, action: PayloadAction<InputItem>) {
 			const newItem = action.payload;
 			const existingItem = state.items.find(
 				(item) => item.id === newItem.id
@@ -44,7 +52,7 @@ const cartSlice = createSlice({
 					price: newItem.price,
 					quantity: 1,
 					totalPrice: newItem.price,
-					name: newItem.title,
+					name: newItem.name,
 				});
 			} else {
 				existingItem.quantity++;
@@ -53,7 +61,7 @@ const cartSlice = createSlice({
 					existingItem.totalPrice + newItem.price;
 			}
 		},
-		removeItemFromCart(state, action) {
+		removeItemFromCart(state, action: PayloadAction<string>) {
 			const id = action.payload;
 			const existingItem = state.items.find((item) => item.id === id);
 

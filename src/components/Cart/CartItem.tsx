@@ -1,13 +1,10 @@
 import React from "react";
-
 import { useDispatch } from "react-redux";
 
 import classes from "./CartItem.module.css";
-import { cartActions } from "../../store/cart-slice";
+import { cartActions, Item } from "../../store/cart-slice";
 
-import { Item } from "../../store/cart-slice";
-
-const CartItem = (props: {item: Item}) => {
+const CartItem: React.FC<{ item: Item }> = (props) => {
 	const dispatch = useDispatch();
 
 	const { name, quantity, totalPrice, price, id } = props.item;

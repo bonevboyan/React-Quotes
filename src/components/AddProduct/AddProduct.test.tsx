@@ -1,5 +1,4 @@
 import React from "react";
-
 import { screen, fireEvent } from "@testing-library/react";
 
 import { renderWithProviders } from "../../utils/test-utils";
