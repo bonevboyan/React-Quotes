@@ -3,9 +3,9 @@ import classes from "./Notification.module.css";
 
 import { useAppDispatch } from "../../store/hooks";
 import { uiActions } from "../../store/ui-slice";
-import { Notification } from "../../store/ui-slice";
+import { NotificationState } from "../../store/ui-slice";
 
-const Notification: React.FC<Notification> = (props) => {
+const Notification: React.FC<NotificationState> = (props) => {
 	const dispatch = useAppDispatch();
 
 	const closeNotificationHandler = () => {

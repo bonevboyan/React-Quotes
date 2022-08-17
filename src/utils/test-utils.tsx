@@ -9,6 +9,7 @@ import setupStore from "../store/index";
 
 import { createMemoryHistory } from "history";
 import { Router } from "react-router-dom";
+import AuthContext, { AuthContextProvider } from "../store/auth-context";
 
 interface ExtendedRenderOptions extends Omit<RenderOptions, "queries"> {
 	preloadedState?: PreloadedState<RootState>;
@@ -24,7 +25,40 @@ export function renderWithProviders(
 	}: ExtendedRenderOptions = {}
 ) {
 	function Wrapper({ children }: PropsWithChildren<{}>): JSX.Element {
-		return <Provider store={store}>{children}</Provider>;
+		return (
+			<Provider store={store}>
+				<AuthContextProvider>{children}</AuthContextProvider>
+			</Provider>
+		);
+	}
+
+	return { store, ...render(ui, { wrapper: Wrapper, ...renderOptions }) };
+}
+
+export function renderAsLoggedIn(
+	ui: React.ReactElement,
+	{
+		preloadedState = {},
+		store = setupStore(preloadedState),
+		...renderOptions
+	}: ExtendedRenderOptions = {}
+) {
+	function Wrapper({ children }: PropsWithChildren<{}>): JSX.Element {
+		return (
+			<Provider store={store}>
+				<AuthContext.Provider
+					value={{
+						isLoggedIn: true,
+						onLogin(name: string, password: string) {
+							return false;
+						},
+						onLogout() {},
+					}}
+				>
+					{children}
+				</AuthContext.Provider>
+			</Provider>
+		);
 	}
 
 	return { store, ...render(ui, { wrapper: Wrapper, ...renderOptions }) };

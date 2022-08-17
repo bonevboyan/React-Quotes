@@ -1,13 +1,13 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
-export interface Notification {
+export interface NotificationState {
 	status: string;
 	title: string;
 	message: string;
 }
 
 interface UIState {
-	notification?: Notification;
+	notification?: NotificationState;
 	isShown: boolean;
 }
 
@@ -19,7 +19,7 @@ const uiSlice = createSlice({
 	name: "ui",
 	initialState,
 	reducers: {
-		showNotification(state, action: PayloadAction<Notification>) {
+		showNotification(state, action: PayloadAction<NotificationState>) {
 			state.isShown = true;
 
 			state.notification = {

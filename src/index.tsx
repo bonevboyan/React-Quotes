@@ -6,13 +6,16 @@ import "./index.css";
 import App from "./App";
 
 import { BrowserRouter } from "react-router-dom";
+import { AuthContextProvider } from "./store/auth-context";
 
 const rootEl = document.getElementById("root")!;
 const root = ReactDOM.createRoot(rootEl);
 root.render(
 	<BrowserRouter>
 		<Provider store={setupStore()}>
-			<App />
+			<AuthContextProvider>
+				<App />
+			</AuthContextProvider>
 		</Provider>
 	</BrowserRouter>
 );

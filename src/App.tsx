@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect } from "react";
+import React, { Fragment, useContext, useEffect } from "react";
 import { Routes, Route, Navigate } from "react-router-dom";
 
 import { useAppSelector, useAppDispatch } from "./store/hooks";
@@ -10,8 +10,12 @@ import Notification from "./components/UI/Notification";
 import { sendCartData, fetchCartData } from "./store/cart-actions";
 import { sendProductData, fetchProductsData } from "./store/product-actions";
 import AddProduct from "./components/AddProduct/AddProduct";
+import AuthContext from "./store/auth-context";
+import Login from "./components/Login/Login";
 
 function App() {
+	const ctx = useContext(AuthContext);
+
 	const dispatch = useAppDispatch();
 	const cart = useAppSelector((state) => state.cart);
 	const products = useAppSelector((state) => state.products);
@@ -19,7 +23,7 @@ function App() {
 	const isNotificationShown = useAppSelector((state) => state.ui.isShown);
 
 	useEffect(() => {
-		console.log(process.env.REACT_APP_FIREBASE_DEMO_URL)
+		console.log(process.env.REACT_APP_FIREBASE_DEMO_URL);
 		dispatch(fetchCartData());
 		dispatch(fetchProductsData());
 	}, [dispatch]);
@@ -48,7 +52,13 @@ function App() {
 			<Layout>
 				<Routes>
 					<Route path="/products" element={<Products />} />
-					<Route path="/addProduct" element={<AddProduct />} />
+					{!ctx.isLoggedIn && (
+						<Route path="/login" element={<Login />} />
+					)}
+					{ctx.isLoggedIn && (
+						<Route path="/addProduct" element={<AddProduct />} />
+					)}
+
 					<Route path="/cart" element={<Cart />} />
 					<Route
 						path="*"
