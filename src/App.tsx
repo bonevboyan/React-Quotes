@@ -23,7 +23,6 @@ function App() {
 	const isNotificationShown = useAppSelector((state) => state.ui.isShown);
 
 	useEffect(() => {
-		console.log(process.env.REACT_APP_FIREBASE_DEMO_URL);
 		dispatch(fetchCartData());
 		dispatch(fetchProductsData());
 	}, [dispatch]);
